@@ -1,0 +1,10 @@
+.button-container {
+}
+
+.timer{
+    padding-top: 8vh;
+    width: 47vh;
+    font-family: var(--font-kumh-sans);
+    font-weight: bold;
+}
+
