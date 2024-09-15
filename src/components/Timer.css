@@ -1,10 +1,29 @@
-.button-container {
-}
-
 .timer{
     padding-top: 8vh;
     width: 47vh;
     font-family: var(--font-kumh-sans);
     font-weight: bold;
+}
+
+.progressbar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.center-button{
+    transform: translate(7%, -450%);
+    border: none;
+    font-family: var(--font-kumh-sans);
+    font-weight: bold;
+    letter-spacing: 15px;
+    color: #ffffff;
+    background: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.center-button:hover{
+    color: #F87070;
 }
 
