@@ -6,7 +6,7 @@ function Button() {
   
   const [active, setActive] = useState(-1);
 
-  const handleClick = (event, id) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
     setActive(id);
     console.log(event);
     // changeTimer(event);

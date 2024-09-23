@@ -1,0 +1,15 @@
+.settings-button {
+    background: none;
+    border-style: none;
+    padding-top: 20px;
+}
+
+.settings-button img {
+    filter: invert(0%); /* No color change */
+}
+
+.settings-button:hover img {
+    color: white;
+    transition: all 0.2s linear;
+    filter: invert(100%);
+}
