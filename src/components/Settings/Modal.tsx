@@ -1,5 +1,5 @@
 import "./Modal.css";
-import closeIcon from '../assets/icon-close.svg';
+import closeIcon from './icon-close.svg';
 
 type propTypes = {
     open: boolean;

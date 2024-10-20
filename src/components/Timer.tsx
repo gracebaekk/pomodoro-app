@@ -3,37 +3,22 @@ import { useState, useEffect } from "react";
 import "react-circular-progressbar/dist/styles.css";
 import "./Timer.css";
 
+interface TimerProps {
+  settings: {
+    pomodoro: number;
+    shortBreak: number;
+    longBreak: number;
+    color: string;
+  };
+}
 
-// const TIMER_ACTIONS = {
-//   START: 'start',
-//   PAUSE: 'pause',
-//   RESTART: 'restart',
-// };
-
-// const [isPaused, setIsPaused] = useState(true);
-// const [timerCount, setTimerCount] = useState<number>(12);
-// const [timerInterval, setTimerInterval] = useState<NodesJS.Timer | null>(null);
-
-// const startTimer = () => {
-//   const id = setInterval(() => setTimerCount((prev) => prev - 1000), 1000);
-//   setTimerInterval(id);
-// }
-
-// const stopTimer = () => {
-//   if (timerInterval != null) {
-//     clearInterval(timerInterval);
-//   }
-// }
-
-
-
-
-function Timer() {
-  const FOCUS_TIME_MINUTES = 25;
-  const BREAK_TIME_MINUTES = 5;
-
-  const [timeLeft, setTimeLeft] = useState(FOCUS_TIME_MINUTES);
+const Timer: React.FC<TimerProps> = ({ settings }) => {
+  const [timeLeft, setTimeLeft] = useState(settings.pomodoro * 60);
   const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    setTimeLeft(settings.pomodoro * 60);
+  }, [settings.pomodoro]);
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -43,21 +28,12 @@ function Timer() {
 
   const handleStartPauseReset = () => {
     if (timeLeft == 0) {
-      setTimeLeft(FOCUS_TIME_MINUTES);
+      setTimeLeft(settings.pomodoro);
     } else if (isRunning) {
       setIsRunning(false);
     } else {
       setIsRunning(true);
     }
-    
-  };
-
-  const buttonStyle = {
-    fontSize: '18px',
-    background: 'none',
-    border: 'none',
-    color: '#ffffff',
-    cursor: 'pointer',
   };
 
   useEffect(() => {
@@ -70,7 +46,7 @@ function Timer() {
       setIsRunning(false); // Stop when the timer reaches 0
     }
     return () => clearInterval(timer); // Clear interval on component unmount
-  }, [isRunning, timeLeft, FOCUS_TIME_MINUTES]);
+  }, [isRunning, timeLeft, settings.pomodoro]);
 
   return (
     <div className="progressbar-container">
@@ -83,15 +59,19 @@ function Timer() {
         className="timer"
         styles={buildStyles({
           pathTransitionDuration: 0.5,
-          pathColor: "#f87070",
+          pathColor: settings.color,
           textColor: "#ffffff",
           trailColor: "#d6d6d6",
           backgroundColor: "#161932",
           textSize: "22px",
         })}
       />
-      <button className="center-button" onClick={handleStartPauseReset}>
-          {timeLeft === 0 ? 'RESET' : isRunning ? 'PAUSE' : 'START'}
+      <button
+        className="center-button"
+        onClick={handleStartPauseReset}
+        style={{ '--selected-color' : settings.color } as React.CSSProperties}
+      >
+        {timeLeft === 0 ? 'RESET' : isRunning ? 'PAUSE' : 'START'}
       </button>
     </div>
   );

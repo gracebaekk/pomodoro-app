@@ -1,5 +1,4 @@
 .settings-content{
-    font-family: var(--font-kumh-sans);
     text-align: left;
     margin: 0 5%;
 }
@@ -109,7 +108,7 @@ hr {
     box-shadow: 0 0 0 5px #F8F9FE;
 }
 
-.font-btn::after {
+.font-btn.active {
     background-color: black;
     color: white;
 }

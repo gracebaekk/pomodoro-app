@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Button.css"; // Import the CSS module correctly
 
-function Button() {
+interface ButtonSettings {
+  font: string;
+  color: string;
+}
+
+function Button({ settings }: { settings: ButtonSettings }) {
   const buttons = ["pomodoro", "short break", "long break"];
   
   const [active, setActive] = useState(-1);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
     setActive(id);
-    console.log(event);
     // changeTimer(event);
   }
 
@@ -20,6 +24,7 @@ function Button() {
                     key={id} 
                     name={button} 
                     onClick={(event) => handleClick(event, id)}
+                    style={id === active ? { backgroundColor: settings.color } : {}}
                     className={id === active ? "customButton active" : "customButton"}
                 >
                     {button}

@@ -1,11 +1,30 @@
 import { useState } from "react";
 import "./SettingsContent.css";
 
-const SettingsContent: React.FC = () => {
+interface SettingsContentProps {
+  onApplySettings: (settings: {
+    pomodoro: number;
+    shortBreak: number;
+    longBreak: number;
+    font: string;
+    color: string;
+  }) => void;
+  currentSettings: {
+    pomodoro: number;
+    shortBreak: number;
+    longBreak: number;
+    font: string;
+    color: string;
+  };
+}
+
+const SettingsContent: React.FC<SettingsContentProps> = ({ onApplySettings, currentSettings }) => {
   // For setting input time
-  const [pomodoro, setPomodoro] = useState(30);
-  const [shortBreak, setShortBreak] = useState(5);
-  const [longBreak, setLongBreak] = useState(15);
+  const [pomodoro, setPomodoro] = useState(currentSettings.pomodoro);
+  const [shortBreak, setShortBreak] = useState(currentSettings.shortBreak);
+  const [longBreak, setLongBreak] = useState(currentSettings.longBreak);
+  const [selectedFont, setSelectedFont] = useState(currentSettings.font);
+  const [selectedColor, setSelectedColor] = useState(currentSettings.color);
 
   const increaseTime = (setter: React.Dispatch<React.SetStateAction<number>>, value: number) => {
     setter(prevTime => prevTime + value);
@@ -16,20 +35,24 @@ const SettingsContent: React.FC = () => {
   };
 
   // For setting input font
-  const [selectedFont, setSelectedFont] = useState("font1"); 
   const handleFontChange = (font: string) => {
     setSelectedFont(font);
   };
 
   // For setting input colors
-  const COLORS = {
-    ORANGE_RED: '#f87070',
-    TEAL: '#70F3F8',
-    PURPLE: '#d881f8',
-  };
-  const [selectedColor, setSelectedColor] = useState("color1");
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
+  };
+
+  const handleApplySettings = () => {
+    const settings = {
+      pomodoro: pomodoro,
+      shortBreak: shortBreak,
+      longBreak: longBreak,
+      font: selectedFont,
+      color: selectedColor,
+    };
+    onApplySettings(settings);  // Call parent handler
   };
   
   return (
@@ -93,7 +116,7 @@ const SettingsContent: React.FC = () => {
       </div>
 
       <div className = "apply">
-        <button>Apply</button>
+        <button onClick={handleApplySettings}>Apply</button>
       </div>
       
     </div>

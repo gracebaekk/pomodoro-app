@@ -1,7 +1,6 @@
 .timer{
     padding-top: 8vh;
     width: 47vh;
-    font-family: var(--font-kumh-sans);
     font-weight: bold;
 }
 
@@ -14,7 +13,6 @@
 .center-button{
     transform: translate(7%, -450%);
     border: none;
-    font-family: var(--font-kumh-sans);
     font-weight: bold;
     letter-spacing: 15px;
     color: #ffffff;
@@ -24,6 +22,6 @@
 }
 
 .center-button:hover{
-    color: #F87070;
+    color: var(--selected-color);
 }
 
